@@ -8,10 +8,10 @@ Script written in python3
 
 ```
 
-*_Example:*
+Example:
 
 ```
-$ python3 sros-to-flat.py sample-sros.conf
+$ python3 sros-to-flat.py sample-sros.conf\n
 /configure router ospf asbr
 /configure router ospf reference-bandwidth 1000000000
 /configure router ospf external-db-overflow 5000 3600
@@ -43,7 +43,7 @@ $ python3 sros-to-flat.py sample-sros.conf
 
 ```
 
-*_Example: Output to file*
+Example: Output to file
 ```
 $ python3 sros-to-flat.py sample-sros-2.conf > sample-sros-2.flat
 $ cat sample-sros-2.flat
