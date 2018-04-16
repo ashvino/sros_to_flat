@@ -10,7 +10,7 @@ Script written in python3
 Example:
 
 
-$ python3 sros-to-flat.py sample-sros.conf\n
+$ python3 sros-to-flat.py sample-sros.conf
 /configure router ospf asbr
 /configure router ospf reference-bandwidth 1000000000
 /configure router ospf external-db-overflow 5000 3600
