@@ -2,8 +2,8 @@
 #####################################################################
 #
 # Purpose:  Script to generate flat config for NOKIA SROS from an
-#			existing SROS indented config file.
-#			SROS config file hierarchies are indented by 4 spaces.
+#	        existing SROS indented config file.
+#	        SROS config file hierarchies are indented by 4 spaces.
 #
 #####################################################################
 
@@ -22,12 +22,13 @@ def output(stack):
     """ Out flat config lines """
     output = " ".join(stack)
     print(output)
+    return output
 
-def main():
+def sros_flatten(data):
+    stack = []
     exit_detected = False
-    conf_file = open(filename, 'r')
-    data = conf_file.read()
     indent = 0
+    new_conf = ""
 
     for line in data.lstrip().splitlines():
         l = len(line) - len(line.lstrip())
@@ -36,10 +37,10 @@ def main():
         if line.startswith(("#", "echo")) or line.strip() == "":
             pass
         elif line.strip() == "exit all":
-            output(stack)
+            new_conf = new_conf + "\n" + output(stack)
         else:
             if nxt_indent == 0 and line.strip() == "configure":
-                new_line = str("/")+str(line.strip())
+                new_line = str("/") + str(line.strip())
                 stack.append(new_line)
 
             elif nxt_indent > indent:
@@ -53,7 +54,7 @@ def main():
                         stack.append(line.strip())
                     else:
                         if len(stack) != 0:
-                            output(stack)
+                            new_conf = new_conf + "\n" + output(stack)
                             pop(stack)
                             stack.append(line.strip())
                         else:
@@ -64,22 +65,26 @@ def main():
             else:
                 if line.strip() == "exit":
                     if not exit_detected:
-                        output(stack)
+                        new_conf = new_conf + "\n" + output(stack)
                         del stack[-2:]
                     else:
                         pop(stack)
                     exit_detected = True
 
                 else:
-                    output(stack)
+                    new_conf = new_conf + "\n" + output(stack)
                     exit_detected = False
                     pop(stack)
             indent = nxt_indent
-    conf_file.close()
+    
+    return new_conf
 
+def main():
+    filename = sys.argv[1]
+    with open(filename, 'r') as f:
+        data = f.read()
+
+    sros_flatten(data)
 
 if __name__ == "__main__":
-    filename = sys.argv[1]
-
-    stack = []
     main()
