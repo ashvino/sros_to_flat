@@ -1,4 +1,4 @@
-**Example of sros-to-flat.py**
+**Example of sros_to_flat.py**
 
 Script to generate flat config for NOKIA SROS from an existing SROS indented config file.
 SROS config file hierarchies are indented by 4 spaces.
@@ -10,7 +10,7 @@ Script written in python3
 Example:
 
 
-$ python3 sros-to-flat.py sample-sros.conf
+$ python3 sros_to_flat.py sample-sros.conf
 /configure router ospf asbr
 /configure router ospf reference-bandwidth 1000000000
 /configure router ospf external-db-overflow 5000 3600
@@ -44,7 +44,7 @@ $ python3 sros-to-flat.py sample-sros.conf
 
 **Example: Output to file**
 ```
-$ python3 sros-to-flat.py sample-sros-2.conf > sample-sros-2.flat
+$ python3 sros_to_flat.py sample-sros-2.conf > sample-sros-2.flat
 $ cat sample-sros-2.flat
 
 /configure system name "aln-pe01"
